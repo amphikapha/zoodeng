@@ -1,25 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:zoodeng/screens/item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_repository/user_repository.dart';
+import 'package:zoodeng/app.dart';
+import 'package:zoodeng/simple_bloc_observer.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Zoodeng',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Zoodeng'),
-          backgroundColor: Colors.brown,
-          centerTitle: true,
-        ),
-        body: const Item(),
-      ),
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  Bloc.observer = SimpleBlocObserver();
+  runApp(MyApp(FirebaseUserRepo()));
 }
